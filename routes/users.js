@@ -16,6 +16,7 @@ router.post('/login', function (req, res, next) {
       if (result.username) {
         // // 保存登录状态到redis
         // redisHandle.set(req.userId, result)
+        req.session.username = result.username;
         res.json(new SuccessModel(`${result.username}, 登录成功`))
         return;
       }
