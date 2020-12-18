@@ -15,6 +15,9 @@ const sessionStore = new redisStore({
 // var indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const blogRouter = require('./routes/blog')
+const allocateRouter = require('./routes/allocate')
+
+const { loginCheck } = require('./middleware/login-check')
 
 var app = express();
 
@@ -41,7 +44,8 @@ app.use(session({
 
 // app.use('/', indexRouter);
 app.use('/app/user', usersRouter);
-app.use('/app/blog', blogRouter)
+app.use('/app/blog', loginCheck, blogRouter)
+app.use('/app/allocate', loginCheck, allocateRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

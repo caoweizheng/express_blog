@@ -6,7 +6,11 @@ class BaseModel {
       message = null
     }
     if (data) {
-      this.data = data
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          this[key] = data[key];
+        }
+      }
     }
     if (message) {
       this.message = message
@@ -22,9 +26,9 @@ class SuccessModel extends BaseModel {
 }
 
 class ErrorModel extends BaseModel {
-  constructor(data, message) {
+  constructor(data, message, code = -1) {
     super(data, message)
-    this.code = -1
+    this.code = code
   }
 }
 
